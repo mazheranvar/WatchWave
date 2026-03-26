@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────────────────────
+# AI-Driven Wi-Fi Intrusion Monitoring System
+# Mazher Anvar | BSc Cyber Security | University of West London
+# ─────────────────────────────────────────────────────────────
+
+# === PYTHON DEPENDENCIES ===
+scikit-learn>=1.3.0
+numpy>=1.24.0
+joblib>=1.3.0
+plyer>=2.1.0          # Desktop notifications
+matplotlib>=3.7.0     # Evaluation charts
+seaborn>=0.12.0       # Confusion matrix heatmap
+
+# === OPTIONAL (for live capture mode) ===
+scapy>=2.5.0          # Packet capture — requires root + monitor-mode adapter
+
+# ─────────────────────────────────────────────────────────────
+# INSTALLATION
+# ─────────────────────────────────────────────────────────────
+# pip install -r requirements.txt
+# For live mode: sudo pip install scapy
+
+# ─────────────────────────────────────────────────────────────
+# QUICK START GUIDE
+# ─────────────────────────────────────────────────────────────
+#
+# STEP 1 — Evaluate the model (run this first)
+#   python evaluate_model.py
+#   → Outputs accuracy, confusion matrix, feature importance chart
+#
+# STEP 2 — Run in simulation mode (no hardware needed)
+#   python wifi_intrusion_detector.py
+#   → Generates synthetic Wi-Fi traffic, detects attacks, sends desktop alerts
+#
+# STEP 3 — Switch to LIVE capture (requires monitor-mode Wi-Fi adapter)
+#   In wifi_intrusion_detector.py, change CONFIG:
+#     "mode": "live"
+#     "interface": "wlan0mon"   ← your monitor-mode interface name
+#   Then run as root:
+#     sudo python wifi_intrusion_detector.py
+#
+# ─────────────────────────────────────────────────────────────
+# ENABLE MONITOR MODE (Kali/Ubuntu)
+# ─────────────────────────────────────────────────────────────
+#   sudo airmon-ng start wlan0
+#   → Creates wlan0mon interface
+#   sudo airmon-ng stop wlan0mon   ← to stop
+#
+# ─────────────────────────────────────────────────────────────
+# OUTPUT FILES
+# ─────────────────────────────────────────────────────────────
+#   intrusion_log.json      ← All detected intrusions (JSON)
+#   ids_runtime.log         ← Runtime logs
+#   rf_model.pkl            ← Trained Random Forest model
+#   scaler.pkl              ← Feature scaler
+#   evaluation_results.png  ← Confusion matrix + feature importance
+#
+# ─────────────────────────────────────────────────────────────
+# ATTACK CLASSES DETECTED
+# ─────────────────────────────────────────────────────────────
+#   0 — Normal Traffic
+#   1 — Deauthentication Flood  (HIGH severity)
+#   2 — Rogue Access Point      (HIGH severity)
+#   3 — MAC Spoofing            (MEDIUM severity)
+#   4 — Probe Request Flood     (MEDIUM severity)
